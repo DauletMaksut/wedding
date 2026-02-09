@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ұзату тойы — Назерке | 30.05.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ====== MUSIC ====== -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ====== MUSIC BUTTON (top-left with spinning ring text) ====== -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic(event)">
+  <div class="music-btn-ring">
+    <svg viewBox="0 0 60 60">
+      <defs>
+        <path id="ringPath" d="M 30,30 m -24,0 a 24,24 0 1,1 48,0 a 24,24 0 1,1 -48,0" />
+      </defs>
+      <text class="music-btn-ring-text">
+        <textPath href="#ringPath" startOffset="0%">ТОҚТАТУ · ОЙНАТУ · ТОҚТАТУ · ОЙНАТУ · </textPath>
+      </text>
+    </svg>
+  </div>
+  <div class="music-btn-inner">
+    <div class="play-icon"></div>
+    <div class="music-bars">
+      <div class="music-bar"></div>
+      <div class="music-bar"></div>
+      <div class="music-bar"></div>
+      <div class="music-bar"></div>
+    </div>
+  </div>
+</button>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero-ornament tl"></div>
+  <div class="hero-ornament tr"></div>
+  <div class="hero-ornament bl"></div>
+  <div class="hero-ornament br"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Ұзату тойы</div>
+    <h1 class="hero-name">Назерке</h1>
+    <p class="hero-event-label">Ұядан ұшқан күн</p>
+    <div class="hero-monogram">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 5 L25 15 L35 15 L27 22 L30 33 L20 26 L10 33 L13 22 L5 15 L15 15 Z" stroke="#c5a55a" stroke-width="0.8" fill="none" opacity="0.6"/>
+        <circle cx="20" cy="20" r="12" stroke="#c5a55a" stroke-width="0.5" fill="none" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+
+  <a href="#message" class="hero-scroll">
+    <span>Толығырақ</span>
+    <span class="arrow"></span>
+  </a>
+</section>
+
+<!-- ====== ШАҚЫРУ (MESSAGE) ====== -->
+<section class="section message-section gold-corners" id="message">
+  <div class="corner-ornament bl">
+    <svg viewBox="0 0 60 60" fill="none"><path d="M5 55 Q5 30 20 20 Q10 35 15 45 Q20 35 30 30" stroke="#c5a55a" stroke-width="0.8" fill="none" opacity="0.5"/><path d="M5 55 Q15 45 25 50 Q15 40 20 30" stroke="#c5a55a" stroke-width="0.6" fill="none" opacity="0.3"/></svg>
+  </div>
+  <div class="corner-ornament br">
+    <svg viewBox="0 0 60 60" fill="none"><path d="M5 55 Q5 30 20 20 Q10 35 15 45 Q20 35 30 30" stroke="#c5a55a" stroke-width="0.8" fill="none" opacity="0.5"/><path d="M5 55 Q15 45 25 50 Q15 40 20 30" stroke="#c5a55a" stroke-width="0.6" fill="none" opacity="0.3"/></svg>
+  </div>
+  <div class="reveal">
+    <p class="section-label">Құрметті қонақтар!</p>
+    <div class="section-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+    <p class="message-text">
+      Ата-ананың дәулысы, бауырдың қадірлісі, үйдің шуақты гүлі болған
+      Назерке қызымыз жаңа өмірге қадам басқалы тұр.
+    </p>
+    <br>
+    <p class="message-text">
+      Бұл — біздің жанұямыз үшін ерекше әрі толқынысқа толы сәт. Біз оны
+      ақ тілекпен, ақ жол тілеп шығарып салуға дайынбыз.
+    </p>
+    <p class="message-signature">
+      Осы айтулы күнді бірге өткізуге<br>шақырамыз!
+    </p>
+  </div>
+</section>
+
+<!-- ====== OWNERS ====== -->
+<section class="owners-section">
+  <div class="section">
+    <div class="reveal">
+      <p class="section-label">Іс-шара иелері</p>
+      <h2 class="section-title">Той иелері</h2>
+      <div class="section-divider">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <div class="owners-grid reveal">
+      <div class="owner-card">
+        <img class="owner-photo" src="father.jpg" alt="Әкесі">
+        <span class="owner-label">Әкесі</span>
+      </div>
+      <div class="owner-card">
+        <img class="owner-photo" src="mother.jpg" alt="Анасы">
+        <span class="owner-label">Анасы</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CALENDAR / ТОЙ САЛТАНАТЫ ====== -->
+<div class="calendar-section">
+  <div class="section">
+    <div class="reveal">
+      <p class="section-label">Той салтанаты:</p>
+      <div class="calendar">
+        <div class="calendar-month">Мамыр</div>
+        <div class="calendar-grid">
+          <span class="day-header">Дс</span>
+          <span class="day-header">Сс</span>
+          <span class="day-header">Ср</span>
+          <span class="day-header">Бс</span>
+          <span class="day-header">Жм</span>
+          <span class="day-header">Сн</span>
+          <span class="day-header">Жс</span>
+          <!-- Мамыр 2026: 1 мамыр = Жұма -->
+          <span class="day empty"></span>
+          <span class="day empty"></span>
+          <span class="day empty"></span>
+          <span class="day empty"></span>
+          <span class="day">1</span>
+          <span class="day">2</span>
+          <span class="day">3</span>
+          <span class="day">4</span>
+          <span class="day">5</span>
+          <span class="day">6</span>
+          <span class="day">7</span>
+          <span class="day">8</span>
+          <span class="day">9</span>
+          <span class="day">10</span>
+          <span class="day">11</span>
+          <span class="day">12</span>
+          <span class="day">13</span>
+          <span class="day">14</span>
+          <span class="day">15</span>
+          <span class="day">16</span>
+          <span class="day">17</span>
+          <span class="day">18</span>
+          <span class="day">19</span>
+          <span class="day">20</span>
+          <span class="day">21</span>
+          <span class="day">22</span>
+          <span class="day">23</span>
+          <span class="day">24</span>
+          <span class="day">25</span>
+          <span class="day">26</span>
+          <span class="day">27</span>
+          <span class="day">28</span>
+          <span class="day">29</span>
+          <span class="day highlight">30</span>
+          <span class="day">31</span>
+        </div>
+        <p class="calendar-time">Сағат 17:00-де</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== COUNTDOWN ====== -->
+<div class="countdown-section" id="countdown">
+  <div class="section">
+    <div class="reveal">
+      <p class="section-label">Тойымызға дейін:</p>
+      <div class="countdown" id="countdown-timer">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">000</span>
+          <span class="countdown-label">күн</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-label">сағат</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-label">минут</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-label">секунд</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== DETAILS ====== -->
+<section class="section details-section">
+  <div class="reveal">
+    <p class="section-label">Мәліметтер</p>
+    <h2 class="section-title">Ұзату тойы туралы</h2>
+    <div class="section-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+  </div>
+  <div class="details-grid">
+    <div class="detail-card reveal">
+      <div class="detail-icon">📅</div>
+      <p class="detail-label">Күні</p>
+      <p class="detail-value">30 мамыр, 2026 жыл<br>Сенбі</p>
+    </div>
+    <div class="detail-card reveal">
+      <div class="detail-icon">📍</div>
+      <p class="detail-label">Мекен-жай</p>
+      <p class="detail-value">Мекен-жай<br>көше, №</p>
+    </div>
+    <div class="detail-card reveal">
+      <div class="detail-icon">🕐</div>
+      <p class="detail-label">Уақыты</p>
+      <p class="detail-value">Қонақтарды қарсы алу<br>17:00</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== MAP ====== -->
+<section class="section map-section">
+  <div class="reveal">
+    <p class="section-label">Мекен-жай</p>
+    <h2 class="section-title">Қалай жетуге болады</h2>
+    <div class="section-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+  </div>
+  <div class="map-container reveal">
+    <iframe
+      src="https://widgets.2gis.com/widget?type=firmsonmap&options=%7B%22pos%22%3A%7B%22lat%22%3A44.972927%2C%22lon%22%3A78.317458%2C%22zoom%22%3A16%7D%2C%22opt%22%3A%7B%22city%22%3A%22almaty%22%7D%2C%22org%22%3A%2270000001086970091%22%7D"
+      allowfullscreen>
+    </iframe>
+  </div>
+  <div class="reveal">
+    <p class="map-address">Мекен-жай — көше, №<br>Талдықорған</p>
+    <a class="map-link" href="https://2gis.kz/almaty/geo/70000001086970091/78.317458,44.972927" target="_blank" rel="noopener">
+      2ГИС-те ашу →
+    </a>
+  </div>
+</section>
+
+<!-- ====== САУАЛНАМА (RSVP) ====== -->
+<section class="rsvp-section" id="rsvp">
+  <div class="section">
+    <div class="reveal">
+      <h2 class="section-title">Сауалнама</h2>
+      <p class="section-label">Қатысуыңызды растауға өтініш білдіреміз</p>
+      <div class="section-divider">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <div class="rsvp-form reveal" id="rsvp-form-container">
+      <form id="rsvp-form" onsubmit="submitRSVP(event)">
+        <div class="form-group">
+          <label class="form-label" for="fullname">Аты-жөніңізді жазыңыз</label>
+          <input class="form-input" type="text" id="fullname" name="fullname" placeholder="Мысалы: Арман-Алия" required>
+        </div>
+        <div class="radio-group">
+          <span class="radio-group-label">Қатысуыңыз</span>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="coming_alone" required>
+            <span>Әрине, келемін!</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="coming_with_partner">
+            <span>Жұбайыммен келемін!</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="not_coming">
+            <span>Өкінішке орай, келе алмаймын!</span>
+          </label>
+        </div>
+        <button class="form-submit" type="submit" id="submit-btn">Жауап беру</button>
+        <div class="form-error" id="form-error">Қате орын алды. Қайта көріңіз.</div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">🌸</div>
+        <h3>Рахмет!</h3>
+        <p>Сіздің қатысуыңыз расталды.<br>Сізді ұзату тойында күтеміз!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <p class="footer-names">Назерке</p>
+  <p class="footer-date">30.05.2026</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
