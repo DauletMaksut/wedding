@@ -1254,10 +1254,139 @@
   .form-input[type="number"]::-webkit-inner-spin-button,
   .form-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
+  /* Guest cards */
+  .guest-card {
+    border: 1px solid rgba(125,155,118,0.2);
+    border-radius: 2px;
+    padding: 1.5rem 1.2rem 1.2rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    background: rgba(125,155,118,0.03);
+    animation: guestCardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes guestCardIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .guest-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .guest-card-badge {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage-light);
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(125,155,118,0.25);
+    border-radius: 1px;
+  }
+
+  .guest-remove-btn {
+    background: none;
+    border: 1px solid rgba(232,160,160,0.3);
+    color: #e8a0a0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .guest-remove-btn:hover {
+    background: rgba(232,160,160,0.1);
+    border-color: #e8a0a0;
+    transform: scale(1.1);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+
+  /* Add guest button */
+  .guest-add-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: transparent;
+    border: 1px dashed rgba(125,155,118,0.3);
+    border-radius: 2px;
+    color: var(--sage-light);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .guest-add-btn:hover {
+    border-color: var(--sage-light);
+    background: rgba(125,155,118,0.05);
+  }
+
+  .guest-add-btn:active {
+    transform: scale(0.98);
+  }
+
+  .guest-add-icon {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(125,155,118,0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .guest-add-btn:hover .guest-add-icon {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: var(--white);
+  }
+
+  /* Guest card removing animation */
+  .guest-card.removing {
+    animation: guestCardOut 0.3s ease forwards;
+  }
+
+  @keyframes guestCardOut {
+    to { opacity: 0; transform: translateY(-8px) scale(0.97); height: 0; padding: 0; margin: 0; overflow: hidden; }
+  }
+
   .form-submit {
     width: 100%;
     padding: 1.2rem 2rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     font-size: 0.75rem;
@@ -1776,18 +1905,32 @@
       </div>
       <div class="rsvp-form reveal" id="rsvp-form-container">
         <form id="rsvp-form" onsubmit="submitRSVP(event)">
-          <div class="form-group">
-            <label class="form-label" for="fname">Аты</label>
-            <input class="form-input" type="text" id="fname" name="fname" placeholder="Атыңыз" required>
+          <!-- Основной гость -->
+          <div class="guest-card guest-primary">
+            <div class="guest-card-header">
+              <span class="guest-card-badge">Сіз</span>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Аты</label>
+                <input class="form-input" type="text" id="fname" placeholder="Атыңыз" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Тегі</label>
+                <input class="form-input" type="text" id="lname" placeholder="Тегіңіз" required>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="lname">Тегі</label>
-            <input class="form-input" type="text" id="lname" name="lname" placeholder="Тегіңіз" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="guests">Қонақтар саны</label>
-            <input class="form-input" type="number" id="guests" name="guests" placeholder="1" min="1" max="20" required>
-          </div>
+
+          <!-- Қосымша қонақтар -->
+          <div id="extra-guests"></div>
+
+          <!-- Қонақ қосу батырмасы -->
+          <button type="button" class="guest-add-btn" id="addGuestBtn" onclick="addGuest()">
+            <span class="guest-add-icon">+</span>
+            <span>Қонақ қосу</span>
+          </button>
+
           <button class="form-submit" type="submit" id="submit-btn">Растау</button>
           <div class="form-error" id="form-error">Қате орын алды. Қайта көріңіз.</div>
         </form>
@@ -1987,7 +2130,56 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // ====== RSVP ======
-  const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK-nStaF5AabZAbaeYYj4AFXBVsWEjFJnrwBtqM9rJ2ZtF6qHQUxH45pt9xCLRjaR3/exec';
+
+  let guestCount = 0;
+  const MAX_GUESTS = 10;
+
+  function addGuest() {
+    if (guestCount >= MAX_GUESTS) return;
+    guestCount++;
+    const container = document.getElementById('extra-guests');
+    const card = document.createElement('div');
+    card.className = 'guest-card';
+    card.id = 'guest-' + guestCount;
+    card.innerHTML =
+      '<div class="guest-card-header">' +
+        '<span class="guest-card-badge">Қонақ ' + guestCount + '</span>' +
+        '<button type="button" class="guest-remove-btn" onclick="removeGuest(\'' + card.id + '\')">&times;</button>' +
+      '</div>' +
+      '<div class="form-row">' +
+        '<div class="form-group">' +
+          '<label class="form-label">Аты</label>' +
+          '<input class="form-input guest-fname" type="text" placeholder="Атыңыз" required>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Тегі</label>' +
+          '<input class="form-input guest-lname" type="text" placeholder="Тегіңіз" required>' +
+        '</div>' +
+      '</div>';
+    container.appendChild(card);
+
+    // Hide button if max reached
+    if (guestCount >= MAX_GUESTS) {
+      document.getElementById('addGuestBtn').style.display = 'none';
+    }
+  }
+
+  function removeGuest(id) {
+    const card = document.getElementById(id);
+    if (!card) return;
+    card.classList.add('removing');
+    setTimeout(() => {
+      card.remove();
+      guestCount--;
+      // Re-number remaining badges
+      const cards = document.querySelectorAll('#extra-guests .guest-card');
+      cards.forEach((c, i) => {
+        c.querySelector('.guest-card-badge').textContent = 'Қонақ ' + (i + 1);
+      });
+      document.getElementById('addGuestBtn').style.display = '';
+    }, 300);
+  }
 
   async function submitRSVP(e) {
     e.preventDefault();
@@ -1998,10 +2190,29 @@
     btn.textContent = 'Жіберілуде...';
     errorEl.classList.remove('show');
 
-    const data = {
+    // Collect primary guest
+    const primary = {
       firstName: document.getElementById('fname').value.trim(),
-      lastName: document.getElementById('lname').value.trim(),
-      guests: document.getElementById('guests').value,
+      lastName: document.getElementById('lname').value.trim()
+    };
+
+    // Collect extra guests
+    const extras = [];
+    document.querySelectorAll('#extra-guests .guest-card').forEach(card => {
+      const fn = card.querySelector('.guest-fname');
+      const ln = card.querySelector('.guest-lname');
+      if (fn && ln && fn.value.trim()) {
+        extras.push({
+          firstName: fn.value.trim(),
+          lastName: ln.value.trim()
+        });
+      }
+    });
+
+    const data = {
+      primary: primary,
+      guests: extras,
+      totalCount: 1 + extras.length,
       event: 'wedding'
     };
 

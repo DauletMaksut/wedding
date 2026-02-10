@@ -66,7 +66,7 @@ function toggleMusic(e) {
 }
 
 // ====== RSVP -> GOOGLE SHEETS ======
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJdznS9Yhuc5Sn6j3aAQEG-bu8f93V8mjxxltuNsYsxDFQhy9ocyQC0bW26Fi3SHTU/exec';
 
 async function submitRSVP(e) {
   e.preventDefault();
