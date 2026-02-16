@@ -39,7 +39,7 @@ body {
   overflow: hidden;
   text-align: center;
   padding: 2rem;
-  padding-bottom: 6rem;
+  padding-bottom: 3rem;
 }
 
 .hero::before {
