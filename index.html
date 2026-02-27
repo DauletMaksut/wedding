@@ -1336,14 +1336,15 @@
     errorEl.classList.remove('show');
 
     const primary = {
-      name: document.getElementById('fullname').value.trim()
+      firstName: document.getElementById('fullname').value.trim(),
+      lastName: ''
     };
 
     const extras = [];
     document.querySelectorAll('#extra-guests .guest-card').forEach(card => {
       const nameEl = card.querySelector('.guest-name');
       if (nameEl && nameEl.value.trim()) {
-        extras.push({ name: nameEl.value.trim() });
+        extras.push({ firstName: nameEl.value.trim(), lastName: '' });
       }
     });
 
