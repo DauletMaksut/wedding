@@ -6,20 +6,20 @@
 <title>Дәулет & Назерке — 06.06.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --sage: #7d9b76;
-    --sage-light: #98b490;
-    --sage-pale: #d6e2d0;
-    --cream: #f9f7f2;
-    --dark: #2f3530;
-    --text: #4a524a;
-    --text-light: #7a827a;
+    --sage: #9C7C52;
+    --sage-light: #B8976A;
+    --sage-pale: #E2D5C3;
+    --cream: #FAF7F2;
+    --dark: #3B2E1E;
+    --text: #5A4A3A;
+    --text-light: #8A7A6A;
     --white: #ffffff;
-    --blush: #f2ede4;
+    --blush: #F5EDE2;
     --gold: #c9a96e;
     --gold-light: #dcc396;
   }
@@ -34,690 +34,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  body.no-scroll {
-    overflow: hidden;
-  }
-
-  /* ============ SPLASH / ENVELOPE ============ */
-  .splash {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #1a1e1a;
-    overflow: hidden;
-    transition: opacity 1.2s ease, visibility 1.2s ease;
-  }
-
-  .splash.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  /* Animated gradient background */
-  .splash-bg {
-    position: absolute;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(125,155,118,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, rgba(201,169,110,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(152,180,144,0.08) 0%, transparent 40%),
-      radial-gradient(ellipse at 30% 80%, rgba(201,169,110,0.06) 0%, transparent 45%);
-    animation: bgDrift 20s ease-in-out infinite;
-  }
-
-  @keyframes bgDrift {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(-3%, 2%) rotate(1deg); }
-    50% { transform: translate(2%, -2%) rotate(-1deg); }
-    75% { transform: translate(-1%, -3%) rotate(0.5deg); }
-  }
-
-  /* Floating mesh lines */
-  .splash-mesh {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .mesh-line {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(152,180,144,0.08), transparent);
-    animation: meshFloat 12s ease-in-out infinite;
-  }
-
-  @keyframes meshFloat {
-    0%, 100% { transform: translateX(-100%) scaleX(0.5); opacity: 0; }
-    50% { transform: translateX(100vw) scaleX(1); opacity: 1; }
-  }
-
-  /* Floating particles */
-  .splash-particles {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .spark {
-    position: absolute;
-    background: var(--gold-light);
-    border-radius: 50%;
-    opacity: 0;
-  }
-
-  .spark.float { animation: sparkFloat 8s ease-in-out infinite; }
-  .spark.rise { animation: sparkRise 6s ease-in-out infinite; }
-
-  @keyframes sparkFloat {
-    0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.3); }
-    30% { opacity: 0.5; }
-    50% { opacity: 0.7; transform: translate(20px, -40px) scale(1); }
-    70% { opacity: 0.4; }
-  }
-
-  @keyframes sparkRise {
-    0% { opacity: 0; transform: translateY(20px) scale(0.5); }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.3; }
-    100% { opacity: 0; transform: translateY(-100vh) scale(0.2); }
-  }
-
-  /* ---- 3D ENVELOPE ---- */
-  .envelope-scene {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    perspective: 1200px;
-    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease 0.5s;
-  }
-
-  .envelope-scene.zooming {
-    transform: scale(8) translateY(-5%);
-    opacity: 0;
-    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s ease 0.6s;
-  }
-
-  .envelope-wrapper {
-    --env-w: clamp(280px, 75vw, 380px);
-    --env-h: clamp(200px, 53vw, 260px);
-    --flap-h: calc(var(--env-h) * 0.52);
-    --fold-h: calc(var(--env-h) * 0.48);
-    position: relative;
-    width: var(--env-w);
-    height: var(--env-h);
-    transform-style: preserve-3d;
-    opacity: 0;
-    transform: translateY(-120vh) rotate(-8deg);
-    animation: envelopeDrop 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-  }
-
-  @keyframes envelopeDrop {
-    0% { opacity: 0; transform: translateY(-120vh) rotate(-8deg); }
-    55% { opacity: 1; transform: translateY(15px) rotate(2deg); }
-    70% { transform: translateY(-8px) rotate(-1.5deg); }
-    85% { transform: translateY(3px) rotate(0.5deg); }
-    100% { opacity: 1; transform: translateY(0) rotate(0deg); }
-  }
-
-  /* Shadow under envelope */
-  .envelope-shadow {
-    position: absolute;
-    bottom: -20px;
-    left: 8%;
-    right: 8%;
-    height: 20px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.25) 0%, transparent 70%);
-    border-radius: 50%;
-    opacity: 0;
-    animation: shadowIn 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
-    filter: blur(8px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .envelope-wrapper.opened .envelope-shadow {
-    transform: scaleX(1.4) scaleY(0.6);
-    opacity: 0.4;
-    bottom: -25px;
-  }
-
-  @keyframes shadowIn {
-    0% { opacity: 0; transform: scaleX(0.3); }
-    100% { opacity: 1; transform: scaleX(1); }
-  }
-
-  /* Envelope back wall */
-  .envelope-back {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(160deg, #ede6d6 0%, #e4dccb 30%, #dbd2c0 60%, #d2c8b4 100%);
-    border-radius: 8px;
-    box-shadow:
-      0 25px 60px rgba(0,0,0,0.35),
-      0 10px 25px rgba(0,0,0,0.2),
-      inset 0 1px 0 rgba(255,255,255,0.5),
-      inset 0 -1px 0 rgba(0,0,0,0.04);
-    overflow: hidden;
-  }
-
-  /* Paper texture */
-  .envelope-back::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.006) 2px, rgba(0,0,0,0.006) 4px),
-      repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.004) 3px, rgba(0,0,0,0.004) 6px);
-    pointer-events: none;
-  }
-
-  /* Gold inner liner — visible when flap opens */
-  .envelope-liner {
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .envelope-liner::before {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    background:
-      linear-gradient(170deg, rgba(201,169,110,0.06) 0%, rgba(201,169,110,0.02) 100%);
-    border: 1px solid rgba(201,169,110,0.12);
-    border-radius: 6px;
-  }
-
-  /* Decorative diamond pattern inside liner */
-  .envelope-liner::after {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    background:
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 12px,
-        rgba(201,169,110,0.03) 12px,
-        rgba(201,169,110,0.03) 13px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 12px,
-        rgba(201,169,110,0.03) 12px,
-        rgba(201,169,110,0.03) 13px
-      );
-    pointer-events: none;
-  }
-
-  /* Card / letter inside envelope — hidden behind front-cover initially */
-  .envelope-card {
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    height: calc(100% - 28px);
-    background: linear-gradient(170deg, #fefcf8 0%, #faf6ee 40%, #f5f0e5 100%);
-    border-radius: 5px;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.4rem 1.2rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    transform: translateY(0);
-    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* When rising: card goes above everything */
-  .envelope-card.rising {
-    z-index: 10;
-  }
-
-  /* Gold border on card */
-  .envelope-card::before {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border: 1px solid rgba(201,169,110,0.18);
-    border-radius: 3px;
-    pointer-events: none;
-  }
-
-  /* Bottom decorative line on card */
-  .envelope-card::after {
-    content: '';
-    position: absolute;
-    bottom: 14px;
-    left: 20%;
-    right: 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
-    pointer-events: none;
-  }
-
-  .card-ornament-top {
-    width: 50px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,169,110,0.35), transparent);
-    margin-bottom: 0.8rem;
-  }
-
-  .card-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 0.48rem;
-    letter-spacing: 0.45em;
-    text-transform: uppercase;
-    color: var(--sage);
-    margin-bottom: 0.6rem;
-  }
-
-  .card-title {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
-    font-weight: 500;
-    font-style: italic;
-    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
-    color: var(--dark);
-    line-height: 1.3;
-  }
-
-  .card-date {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 0.55rem;
-    letter-spacing: 0.3em;
-    color: var(--sage);
-    margin-top: 0.6rem;
-  }
-
-  .card-ornament-bottom {
-    width: 30px;
-    height: 30px;
-    margin-top: 0.5rem;
-    opacity: 0.3;
-  }
-
-  /* Solid front cover — fully hides the card behind */
-  .envelope-front-cover {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, #dfd8c8 0%, #dbd3c2 40%, #d6cdbc 70%, #d2c8b5 100%);
-    border-radius: 8px;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  /* Side fold lines — decorative triangles on top of front cover */
-  .envelope-fold-left,
-  .envelope-fold-right {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-  }
-
-  .envelope-fold-left {
-    left: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.03) 0%, transparent 60%);
-    clip-path: polygon(0 0, 50% 50%, 0 100%);
-  }
-
-  .envelope-fold-right {
-    right: 0;
-    background: linear-gradient(225deg, rgba(0,0,0,0.02) 0%, transparent 60%);
-    clip-path: polygon(100% 0, 50% 50%, 100% 100%);
-  }
-
-  /* Center V fold line — where left and right meet */
-  .envelope-fold-center {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-    background:
-      linear-gradient(to bottom right, transparent 49.5%, rgba(0,0,0,0.04) 49.5%, rgba(0,0,0,0.04) 50.5%, transparent 50.5%);
-  }
-
-  /* Bottom flap (front triangle) */
-  .envelope-front-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--fold-h);
-    background: linear-gradient(0deg, #e2dacb 0%, #ded5c5 60%, #d9d0bf 100%);
-    clip-path: polygon(0 100%, 50% 0, 100% 100%);
-    z-index: 4;
-    border-radius: 0 0 8px 8px;
-  }
-
-  /* Subtle fold line on bottom flap */
-  .envelope-front-bottom::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, transparent 35%);
-    clip-path: polygon(0 100%, 50% 0, 100% 100%);
-    pointer-events: none;
-  }
-
-  /* Top flap (3D opening flap) */
-  .envelope-flap-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--flap-h);
-    transform-style: preserve-3d;
-    transform-origin: top center;
-    z-index: 5;
-    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Flap front face */
-  .envelope-flap-front {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #ccc3b0 0%, #c7bda9 40%, #c2b8a3 100%);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    backface-visibility: hidden;
-  }
-
-  /* Paper texture on flap */
-  .envelope-flap-front::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.005) 3px, rgba(0,0,0,0.005) 6px);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    pointer-events: none;
-  }
-
-  /* Subtle edge shadow on flap */
-  .envelope-flap-front::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.06) 100%);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    pointer-events: none;
-  }
-
-  /* Flap back face (visible when opened) — shows inner gold liner */
-  .envelope-flap-back {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #d8d0c0 0%, #d4ccbb 50%, #d0c7b5 100%);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    transform: rotateX(180deg);
-    backface-visibility: hidden;
-  }
-
-  .envelope-flap-back::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(201,169,110,0.08) 0%, rgba(201,169,110,0.03) 100%);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    pointer-events: none;
-  }
-
-  /* Wax seal */
-  .envelope-seal {
-    position: absolute;
-    top: calc(var(--flap-h) - 30px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 56px;
-    height: 56px;
-    z-index: 6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .seal-body {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 35% 30%, #ecd28a 0%, #d4a94f 25%, var(--gold) 40%, #a8864e 70%, #8a6e3e 100%);
-    border-radius: 50%;
-    box-shadow:
-      0 4px 14px rgba(0,0,0,0.4),
-      0 1px 3px rgba(0,0,0,0.2),
-      inset 0 2px 5px rgba(255,255,255,0.3),
-      inset 0 -3px 8px rgba(0,0,0,0.25);
-    transition: all 0.5s ease;
-  }
-
-  /* Wax drips */
-  .seal-body::before {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: 10px;
-    width: 8px;
-    height: 10px;
-    background: radial-gradient(circle at 50% 30%, #d4a94f, #a8864e);
-    border-radius: 50% 50% 40% 40%;
-    opacity: 0.8;
-  }
-
-  .seal-body::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    right: 8px;
-    width: 6px;
-    height: 8px;
-    background: radial-gradient(circle at 50% 30%, #d4a94f, #a8864e);
-    border-radius: 40% 40% 50% 50%;
-    opacity: 0.6;
-  }
-
-  .seal-ring {
-    position: absolute;
-    inset: 6px;
-    border: 1.5px solid rgba(255,255,255,0.15);
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  .seal-ring::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 50%;
-  }
-
-  .seal-monogram {
-    position: relative;
-    z-index: 2;
-    font-family: 'Playfair Display', 'Noto Serif', serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    font-style: italic;
-    color: #4a3820;
-    text-shadow: 0 1px 1px rgba(255,255,255,0.15);
-    letter-spacing: 0.05em;
-  }
-
-  /* Seal crack animation pieces */
-  .seal-crack-left,
-  .seal-crack-right {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .seal-crack-left {
-    clip-path: polygon(0 0, 52% 0, 48% 100%, 0 100%);
-  }
-
-  .seal-crack-right {
-    clip-path: polygon(52% 0, 100% 0, 100% 100%, 48% 100%);
-  }
-
-  .seal-crack-left::before,
-  .seal-crack-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 35% 30%, #ecd28a 0%, var(--gold) 40%, #a8864e 70%, #8a6e3e 100%);
-  }
-
-  /* ---- OPENED STATE ---- */
-  .envelope-wrapper.opened .envelope-flap-container {
-    transform: rotateX(180deg);
-    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .envelope-wrapper.opened .envelope-seal {
-    animation: sealBreak 0.6s ease forwards;
-  }
-
-  @keyframes sealBreak {
-    0% { transform: translateX(-50%) scale(1); opacity: 1; }
-    30% { transform: translateX(-50%) scale(1.15); opacity: 1; }
-    50% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
-    100% { transform: translateX(-50%) scale(0.3) translateY(15px); opacity: 0; }
-  }
-
-  .envelope-wrapper.opened .seal-crack-left,
-  .envelope-wrapper.opened .seal-crack-right {
-    opacity: 1;
-    animation: sealSplit 0.5s ease forwards 0.15s;
-  }
-
-  .envelope-wrapper.opened .seal-crack-left {
-    animation-name: sealSplitLeft;
-  }
-
-  .envelope-wrapper.opened .seal-crack-right {
-    animation-name: sealSplitRight;
-  }
-
-  @keyframes sealSplitLeft {
-    0% { transform: translateX(0); opacity: 0.8; }
-    100% { transform: translateX(-12px) rotate(-15deg); opacity: 0; }
-  }
-
-  @keyframes sealSplitRight {
-    0% { transform: translateX(0); opacity: 0.8; }
-    100% { transform: translateX(12px) rotate(15deg); opacity: 0; }
-  }
-
-  .envelope-wrapper.opened .envelope-card {
-    transform: translateY(calc(-50% - 30px));
-    transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
-  }
-
-  /* Gold sparkle particles on open */
-  .envelope-sparkles {
-    position: absolute;
-    inset: 0;
-    z-index: 7;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .envelope-wrapper.opened .envelope-sparkles {
-    opacity: 1;
-  }
-
-  .sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--gold-light);
-    border-radius: 50%;
-    opacity: 0;
-  }
-
-  .envelope-wrapper.opened .sparkle {
-    animation: sparkleUp 1.2s ease forwards;
-  }
-
-  @keyframes sparkleUp {
-    0% { opacity: 0; transform: translate(0, 0) scale(0); }
-    20% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(0.3); }
-  }
-
-  /* Hint text */
-  .splash-hint {
-    position: relative;
-    z-index: 2;
-    font-family: 'Cormorant Garamond', 'Noto Serif', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--sage-light);
-    margin-top: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 1s ease 2.4s forwards, pulse 2.5s ease 3.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-
-  /* Glow behind envelope */
-  .envelope-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, rgba(125,155,118,0.08) 35%, transparent 65%);
-    border-radius: 50%;
-    z-index: 0;
-    opacity: 0;
-    animation: glowPulse 3s ease 2.5s infinite;
-    transition: opacity 0.8s ease;
-  }
-
-  .envelope-wrapper.opened ~ .envelope-glow,
-  .envelope-scene.zooming .envelope-glow {
-    opacity: 0 !important;
-    animation: none;
-  }
-
-  @keyframes glowPulse {
-    0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-  }
 
   /* ============ MAIN SITE ============ */
   .main-site {
@@ -755,8 +71,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 20% 50%, rgba(125,155,118,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 30%, rgba(152,180,144,0.08) 0%, transparent 50%);
+      radial-gradient(ellipse at 20% 50%, rgba(156,124,82,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(184,151,106,0.08) 0%, transparent 50%);
   }
 
   .hero-content {
@@ -809,14 +125,13 @@
     color: var(--sage-light);
     margin-bottom: 1.5rem;
     padding: 0.5rem 1.5rem;
-    border: 1px solid rgba(125,155,118,0.3);
+    border: 1px solid rgba(156,124,82,0.3);
     opacity: 0;
     animation: fadeUp 1s ease 0.2s forwards;
-    animation-play-state: paused;
   }
 
   .hero-name {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-style: italic;
     font-size: clamp(3rem, 10vw, 6rem);
@@ -824,18 +139,16 @@
     line-height: 1.1;
     opacity: 0;
     animation: fadeUp 1.2s ease 0.5s forwards;
-    animation-play-state: paused;
   }
 
   .hero-ampersand {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-size: clamp(1.8rem, 5vw, 2.5rem);
     color: var(--sage);
     margin: 0.5rem 0;
     opacity: 0;
     animation: fadeUp 1s ease 0.7s forwards;
-    animation-play-state: paused;
   }
 
   .hero-line {
@@ -845,7 +158,6 @@
     margin: 2rem auto;
     opacity: 0;
     animation: fadeUp 1s ease 1s forwards;
-    animation-play-state: paused;
   }
 
   .hero-date {
@@ -856,7 +168,6 @@
     color: var(--sage-light);
     opacity: 0;
     animation: fadeUp 1s ease 1.2s forwards;
-    animation-play-state: paused;
   }
 
   .hero-scroll {
@@ -876,7 +187,6 @@
     text-transform: uppercase;
     opacity: 0;
     animation: fadeUp 1s ease 1.5s forwards;
-    animation-play-state: paused;
     cursor: pointer;
     text-decoration: none;
     z-index: 1;
@@ -936,7 +246,7 @@
   }
 
   .section-title {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-size: clamp(2rem, 5vw, 3rem);
     color: var(--dark);
@@ -977,12 +287,12 @@
     align-items: center;
     min-width: 70px;
     padding: 0.9rem 0.6rem;
-    border: 1px solid rgba(125,155,118,0.25);
+    border: 1px solid rgba(156,124,82,0.25);
     background: var(--cream);
   }
 
   .countdown-number {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-size: clamp(1.8rem, 5vw, 2.8rem);
     color: var(--dark);
@@ -1000,7 +310,7 @@
   }
 
   .countdown-separator {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 300;
     font-size: 1.8rem;
     color: var(--sage-light);
@@ -1023,7 +333,7 @@
   }
 
   .calendar-month {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-style: italic;
     font-size: 1.5rem;
     color: var(--dark);
@@ -1070,7 +380,7 @@
   }
 
   .calendar-time {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-style: italic;
     font-size: 1.1rem;
     color: var(--sage);
@@ -1119,7 +429,7 @@
 
   .detail-card {
     padding: 2.5rem 2rem;
-    border: 1px solid rgba(125,155,118,0.15);
+    border: 1px solid rgba(156,124,82,0.15);
     position: relative;
     transition: all 0.4s ease;
     background: var(--white);
@@ -1127,7 +437,7 @@
 
   .detail-card:hover {
     border-color: var(--sage-light);
-    box-shadow: 0 8px 30px rgba(125,155,118,0.08);
+    box-shadow: 0 8px 30px rgba(156,124,82,0.08);
   }
 
   .detail-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
@@ -1154,7 +464,7 @@
 
   .map-container {
     margin-top: 2.5rem;
-    border: 1px solid rgba(125,155,118,0.15);
+    border: 1px solid rgba(156,124,82,0.15);
     overflow: hidden;
   }
 
@@ -1197,7 +507,7 @@
 
   /* ============ RSVP ============ */
   .rsvp-section {
-    background: linear-gradient(165deg, #2f3530 0%, #3b4338 40%, #2f3530 100%);
+    background: linear-gradient(165deg, #3B2E1E 0%, #4A3828 40%, #3B2E1E 100%);
     position: relative;
     overflow: hidden;
   }
@@ -1207,8 +517,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at 30% 20%, rgba(125,155,118,0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 80%, rgba(125,155,118,0.05) 0%, transparent 50%);
+      radial-gradient(ellipse at 30% 20%, rgba(156,124,82,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 80%, rgba(156,124,82,0.05) 0%, transparent 50%);
   }
 
   .rsvp-section .section-label { color: var(--sage-light); }
@@ -1242,12 +552,12 @@
     color: var(--sage-pale);
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(125,155,118,0.3);
+    border-bottom: 1px solid rgba(156,124,82,0.3);
     outline: none;
     transition: border-color 0.3s ease;
   }
 
-  .form-input::placeholder { color: rgba(125,155,118,0.25); }
+  .form-input::placeholder { color: rgba(156,124,82,0.25); }
   .form-input:focus { border-color: var(--sage-light); }
 
   .form-input[type="number"] { -moz-appearance: textfield; }
@@ -1256,12 +566,12 @@
 
   /* Guest cards */
   .guest-card {
-    border: 1px solid rgba(125,155,118,0.2);
+    border: 1px solid rgba(156,124,82,0.2);
     border-radius: 2px;
     padding: 1.5rem 1.2rem 1.2rem;
     margin-bottom: 1.2rem;
     position: relative;
-    background: rgba(125,155,118,0.03);
+    background: rgba(156,124,82,0.03);
     animation: guestCardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -1285,7 +595,7 @@
     text-transform: uppercase;
     color: var(--sage-light);
     padding: 0.25rem 0.7rem;
-    border: 1px solid rgba(125,155,118,0.25);
+    border: 1px solid rgba(156,124,82,0.25);
     border-radius: 1px;
   }
 
@@ -1335,7 +645,7 @@
     justify-content: center;
     gap: 0.6rem;
     background: transparent;
-    border: 1px dashed rgba(125,155,118,0.3);
+    border: 1px dashed rgba(156,124,82,0.3);
     border-radius: 2px;
     color: var(--sage-light);
     font-family: 'Montserrat', sans-serif;
@@ -1348,7 +658,7 @@
 
   .guest-add-btn:hover {
     border-color: var(--sage-light);
-    background: rgba(125,155,118,0.05);
+    background: rgba(156,124,82,0.05);
   }
 
   .guest-add-btn:active {
@@ -1358,7 +668,7 @@
   .guest-add-icon {
     width: 24px;
     height: 24px;
-    border: 1px solid rgba(125,155,118,0.4);
+    border: 1px solid rgba(156,124,82,0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1401,7 +711,7 @@
 
   .form-submit:hover {
     background: linear-gradient(135deg, var(--sage), var(--sage-light));
-    box-shadow: 0 4px 20px rgba(125,155,118,0.3);
+    box-shadow: 0 4px 20px rgba(156,124,82,0.3);
     transform: translateY(-1px);
   }
 
@@ -1413,7 +723,7 @@
   .form-success-icon { font-size: 3rem; margin-bottom: 1.5rem; }
 
   .form-success h3 {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-size: 1.8rem;
     color: var(--sage-pale);
@@ -1469,7 +779,7 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--sage-pale);
-    box-shadow: 0 4px 15px rgba(125,155,118,0.15);
+    box-shadow: 0 4px 15px rgba(156,124,82,0.15);
   }
 
   .owner-label {
@@ -1481,13 +791,13 @@
 
   /* ============ FOOTER ============ */
   .footer {
-    background: #202520;
+    background: #2C2216;
     padding: 3rem 2rem;
     text-align: center;
   }
 
   .footer-names {
-    font-family: 'Playfair Display', 'Noto Serif', serif;
+    font-family: 'Lora', 'Noto Serif', serif;
     font-weight: 400;
     font-style: italic;
     font-size: 2rem;
@@ -1535,8 +845,8 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(125,155,118,0.4);
-    background: rgba(47,53,48,0.85);
+    border: 1px solid rgba(156,124,82,0.4);
+    background: rgba(59,46,30,0.85);
     backdrop-filter: blur(10px);
     cursor: pointer;
     display: flex;
@@ -1553,7 +863,7 @@
   }
 
   .music-btn:hover {
-    background: rgba(47,53,48,0.95);
+    background: rgba(59,46,30,0.95);
     border-color: var(--sage-light);
   }
 
@@ -1604,9 +914,6 @@
     .countdown-separator { font-size: 1.5rem; }
     .countdown { gap: 0.3rem; }
     .countdown-item { min-width: 60px; }
-    .envelope-seal { width: 44px; height: 44px; }
-    .seal-monogram { font-size: 0.7rem; }
-    .envelope-wrapper { --env-w: clamp(260px, 80vw, 340px); --env-h: clamp(180px, 55vw, 235px); }
   }
 
   @media (max-width: 480px) {
@@ -1615,60 +922,7 @@
   }
 </style>
 </head>
-<body class="no-scroll">
-
-<!-- ====== SPLASH / ENVELOPE ====== -->
-<div class="splash" id="splash">
-  <div class="splash-bg"></div>
-  <div class="splash-mesh" id="meshLines"></div>
-  <div class="splash-particles" id="particles"></div>
-
-  <div class="envelope-scene" id="envelopeScene" onclick="openEnvelope()">
-    <div class="envelope-glow"></div>
-    <div class="envelope-wrapper" id="envelope">
-      <!-- Back wall -->
-      <div class="envelope-back"></div>
-      <!-- Gold inner liner -->
-      <div class="envelope-liner"></div>
-      <!-- Letter / card -->
-      <div class="envelope-card" id="envelopeCard">
-        <div class="card-ornament-top"></div>
-        <p class="card-label">Шақыру</p>
-        <p class="card-title">Дәулет & Назерке</p>
-        <p class="card-date">06 . 06 . 2026</p>
-        <svg class="card-ornament-bottom" viewBox="0 0 30 30" fill="none">
-          <path d="M15 5 L18 12 L25 12 L19 17 L21 25 L15 20 L9 25 L11 17 L5 12 L12 12 Z" stroke="rgba(201,169,110,0.4)" stroke-width="0.8" fill="none"/>
-        </svg>
-      </div>
-      <!-- Solid front cover (hides card completely) -->
-      <div class="envelope-front-cover"></div>
-      <!-- Side fold lines (decorative) -->
-      <div class="envelope-fold-left"></div>
-      <div class="envelope-fold-right"></div>
-      <div class="envelope-fold-center"></div>
-      <!-- Bottom flap -->
-      <div class="envelope-front-bottom"></div>
-      <!-- Top flap (3D opening) -->
-      <div class="envelope-flap-container">
-        <div class="envelope-flap-front"></div>
-        <div class="envelope-flap-back"></div>
-      </div>
-      <!-- Wax seal -->
-      <div class="envelope-seal">
-        <div class="seal-body"></div>
-        <div class="seal-ring"></div>
-        <span class="seal-monogram">Д&Н</span>
-        <div class="seal-crack-left"></div>
-        <div class="seal-crack-right"></div>
-      </div>
-      <!-- Sparkle particles on open -->
-      <div class="envelope-sparkles" id="envelopeSparkles"></div>
-      <!-- Shadow -->
-      <div class="envelope-shadow"></div>
-    </div>
-    <p class="splash-hint" id="splashHint">Конвертті ашу үшін басыңыз</p>
-  </div>
-</div>
+<body>
 
 <!-- ====== MUSIC ====== -->
 <audio id="bgMusic" loop preload="auto">
@@ -1685,7 +939,7 @@
 </button>
 
 <!-- ====== MAIN SITE ====== -->
-<div class="main-site" id="mainSite">
+<div class="main-site visible" id="mainSite">
 
   <!-- ====== HERO ====== -->
   <section class="hero">
@@ -1830,7 +1084,7 @@
             <span class="day">29</span>
             <span class="day">30</span>
           </div>
-          <p class="calendar-time">Сағат 18:00-де</p>
+          <p class="calendar-time">Сағат 16:00-де</p>
         </div>
       </div>
     </div>
@@ -1861,7 +1115,7 @@
       <div class="detail-card reveal">
         <div class="detail-icon">🕐</div>
         <p class="detail-label">Уақыты</p>
-        <p class="detail-value">Қонақтарды қарсы алу<br>18:00</p>
+        <p class="detail-value">Қонақтарды қарсы алу<br>16:00</p>
       </div>
     </div>
   </section>
@@ -1910,15 +1164,9 @@
             <div class="guest-card-header">
               <span class="guest-card-badge">Сіз</span>
             </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Аты</label>
-                <input class="form-input" type="text" id="fname" placeholder="Атыңыз" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Тегі</label>
-                <input class="form-input" type="text" id="lname" placeholder="Тегіңіз" required>
-              </div>
+            <div class="form-group">
+              <label class="form-label">Аты-жөніңіз</label>
+              <input class="form-input" type="text" id="fullname" placeholder="Аты-жөніңіз" required>
             </div>
           </div>
 
@@ -1953,120 +1201,32 @@
 </div>
 
 <script>
-  // ====== ANIMATED BACKGROUND: MESH LINES ======
-  (function createMesh() {
-    const container = document.getElementById('meshLines');
-    for (let i = 0; i < 8; i++) {
-      const line = document.createElement('div');
-      line.className = 'mesh-line';
-      line.style.top = (10 + Math.random() * 80) + '%';
-      line.style.width = (30 + Math.random() * 40) + '%';
-      line.style.animationDuration = (10 + Math.random() * 15) + 's';
-      line.style.animationDelay = Math.random() * 10 + 's';
-      container.appendChild(line);
-    }
-  })();
-
-  // ====== SPLASH PARTICLES ======
-  (function createParticles() {
-    const container = document.getElementById('particles');
-    for (let i = 0; i < 40; i++) {
-      const s = document.createElement('div');
-      const type = Math.random() > 0.5 ? 'float' : 'rise';
-      s.className = 'spark ' + type;
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = (20 + Math.random() * 70) + '%';
-      s.style.animationDuration = (4 + Math.random() * 8) + 's';
-      s.style.animationDelay = Math.random() * 8 + 's';
-      const size = 2 + Math.random() * 4;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      if (Math.random() > 0.5) {
-        s.style.background = 'var(--sage-light)';
-      }
-      container.appendChild(s);
-    }
-  })();
-
-  // ====== ENVELOPE OPEN → ZOOM → MAIN SITE ======
-  let envelopeOpened = false;
-
-  // Create sparkle particles inside envelope
-  (function createSparkles() {
-    const container = document.getElementById('envelopeSparkles');
-    for (let i = 0; i < 14; i++) {
-      const s = document.createElement('div');
-      s.className = 'sparkle';
-      s.style.left = (30 + Math.random() * 40) + '%';
-      s.style.top = (20 + Math.random() * 40) + '%';
-      s.style.setProperty('--sx', (Math.random() * 80 - 40) + 'px');
-      s.style.setProperty('--sy', (-30 - Math.random() * 60) + 'px');
-      s.style.animationDelay = (0.1 + Math.random() * 0.5) + 's';
-      const size = 2 + Math.random() * 4;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      if (Math.random() > 0.4) s.style.background = 'var(--sage-light)';
-      container.appendChild(s);
-    }
-  })();
-
-  function openEnvelope() {
-    if (envelopeOpened) return;
-    envelopeOpened = true;
-
-    const envelope = document.getElementById('envelope');
-    const scene = document.getElementById('envelopeScene');
-    const splash = document.getElementById('splash');
-    const mainSite = document.getElementById('mainSite');
-    const musicBtn = document.getElementById('musicBtn');
+  // ====== MUSIC: play on first interaction ======
+  (function() {
     const music = document.getElementById('bgMusic');
-    const hint = document.getElementById('splashHint');
+    const musicBtn = document.getElementById('musicBtn');
+    musicBtn.classList.add('visible');
+    let started = false;
+    function startMusic() {
+      if (started) return;
+      started = true;
+      music.volume = 0.4;
+      music.play().then(() => {
+        musicBtn.classList.add('playing');
+      }).catch(() => {});
+      document.removeEventListener('click', startMusic);
+      document.removeEventListener('touchstart', startMusic);
+      document.removeEventListener('scroll', startMusic);
+    }
+    document.addEventListener('click', startMusic, { once: true });
+    document.addEventListener('touchstart', startMusic, { once: true });
+    document.addEventListener('scroll', startMusic, { once: true });
+  })();
 
-    // Step 1: Hide hint
-    hint.style.opacity = '0';
-    hint.style.transition = 'opacity 0.3s ease';
-
-    // Step 2: Open the envelope flap + seal breaks
-    envelope.classList.add('opened');
-
-    // Step 2b: After flap opens, raise card above front cover then animate up
-    const card = document.getElementById('envelopeCard');
-    setTimeout(() => {
-      card.classList.add('rising');
-    }, 500);
-
-    // Step 3: Play music
-    music.volume = 0.4;
-    music.play().then(() => {
-      musicBtn.classList.add('playing');
-    }).catch(() => {});
-
-    // Step 4: After card visible — zoom in envelope
-    setTimeout(() => {
-      scene.classList.add('zooming');
-    }, 1800);
-
-    // Step 5: Fade splash out, show main site
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.body.classList.remove('no-scroll');
-      splash.classList.add('hidden');
-      mainSite.classList.add('visible');
-      musicBtn.classList.add('visible');
-
-      // Start hero animations
-      document.querySelectorAll('.hero-badge, .hero-name, .hero-ampersand, .hero-line, .hero-date, .hero-scroll').forEach(el => {
-        el.style.animationPlayState = 'running';
-      });
-    }, 2800);
-  }
-
-  // ====== MUSIC TOGGLE ======
   function toggleMusic(e) {
     e.stopPropagation();
     const music = document.getElementById('bgMusic');
     const btn = document.getElementById('musicBtn');
-
     if (music.paused) {
       music.play();
       btn.classList.add('playing');
@@ -2078,10 +1238,9 @@
 
   // ====== COUNTDOWN ======
   function updateCountdown() {
-    const wedding = new Date('2026-06-06T18:00:00+06:00');
+    const wedding = new Date('2026-06-06T16:00:00+06:00');
     const now = new Date();
     const diff = wedding - now;
-
     if (diff <= 0) {
       document.getElementById('days').textContent = '0';
       document.getElementById('hours').textContent = '0';
@@ -2089,18 +1248,15 @@
       document.getElementById('seconds').textContent = '0';
       return;
     }
-
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
     document.getElementById('days').textContent = days;
     document.getElementById('hours').textContent = String(hours).padStart(2, '0');
     document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
   }
-
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
@@ -2126,7 +1282,6 @@
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // ====== RSVP ======
@@ -2144,22 +1299,14 @@
     card.id = 'guest-' + guestCount;
     card.innerHTML =
       '<div class="guest-card-header">' +
-        '<span class="guest-card-badge">Қонақ ' + guestCount + '</span>' +
+        '<span class="guest-card-badge">\u049A\u043E\u043D\u0430\u049B ' + guestCount + '</span>' +
         '<button type="button" class="guest-remove-btn" onclick="removeGuest(\'' + card.id + '\')">&times;</button>' +
       '</div>' +
-      '<div class="form-row">' +
-        '<div class="form-group">' +
-          '<label class="form-label">Аты</label>' +
-          '<input class="form-input guest-fname" type="text" placeholder="Атыңыз" required>' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label class="form-label">Тегі</label>' +
-          '<input class="form-input guest-lname" type="text" placeholder="Тегіңіз" required>' +
-        '</div>' +
+      '<div class="form-group">' +
+        '<label class="form-label">\u0410\u0442\u044B-\u0436\u04E9\u043D\u0456\u04A3\u0456\u0437</label>' +
+        '<input class="form-input guest-name" type="text" placeholder="\u0410\u0442\u044B-\u0436\u04E9\u043D\u0456\u04A3\u0456\u0437" required>' +
       '</div>';
     container.appendChild(card);
-
-    // Hide button if max reached
     if (guestCount >= MAX_GUESTS) {
       document.getElementById('addGuestBtn').style.display = 'none';
     }
@@ -2172,10 +1319,9 @@
     setTimeout(() => {
       card.remove();
       guestCount--;
-      // Re-number remaining badges
       const cards = document.querySelectorAll('#extra-guests .guest-card');
       cards.forEach((c, i) => {
-        c.querySelector('.guest-card-badge').textContent = 'Қонақ ' + (i + 1);
+        c.querySelector('.guest-card-badge').textContent = '\u049A\u043E\u043D\u0430\u049B ' + (i + 1);
       });
       document.getElementById('addGuestBtn').style.display = '';
     }, 300);
@@ -2185,27 +1331,19 @@
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
     const errorEl = document.getElementById('form-error');
-
     btn.disabled = true;
-    btn.textContent = 'Жіберілуде...';
+    btn.textContent = '\u0416\u0456\u0431\u0435\u0440\u0456\u043B\u0443\u0434\u0435...';
     errorEl.classList.remove('show');
 
-    // Collect primary guest
     const primary = {
-      firstName: document.getElementById('fname').value.trim(),
-      lastName: document.getElementById('lname').value.trim()
+      name: document.getElementById('fullname').value.trim()
     };
 
-    // Collect extra guests
     const extras = [];
     document.querySelectorAll('#extra-guests .guest-card').forEach(card => {
-      const fn = card.querySelector('.guest-fname');
-      const ln = card.querySelector('.guest-lname');
-      if (fn && ln && fn.value.trim()) {
-        extras.push({
-          firstName: fn.value.trim(),
-          lastName: ln.value.trim()
-        });
+      const nameEl = card.querySelector('.guest-name');
+      if (nameEl && nameEl.value.trim()) {
+        extras.push({ name: nameEl.value.trim() });
       }
     });
 
@@ -2223,13 +1361,12 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-
       document.getElementById('rsvp-form').style.display = 'none';
       document.getElementById('form-success').classList.add('show');
     } catch (err) {
       errorEl.classList.add('show');
       btn.disabled = false;
-      btn.textContent = 'Растау';
+      btn.textContent = '\u0420\u0430\u0441\u0442\u0430\u0443';
     }
   }
 </script>
