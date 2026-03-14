@@ -712,14 +712,15 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--dark);
-    background: linear-gradient(135deg, var(--sage-light), var(--sage));
+    background: var(--blush);
     border: none;
     cursor: pointer;
     transition: all 0.4s ease;
   }
 
   .form-submit:hover {
-    background: linear-gradient(135deg, var(--sage), var(--sage-light));
+    background: var(--blush);
+    opacity: 0.9;
     box-shadow: 0 4px 20px rgba(156,124,82,0.3);
     transform: translateY(-1px);
   }
@@ -814,7 +815,7 @@
 
   /* ============ FOOTER ============ */
   .footer {
-    background: #2C2216;
+    background: var(--blush);
     padding: 3rem 2rem;
     text-align: center;
   }
@@ -824,7 +825,7 @@
     font-weight: 400;
     font-style: italic;
     font-size: 2rem;
-    color: var(--sage-light);
+    color: var(--dark);
     margin-bottom: 0.5rem;
   }
 
@@ -833,8 +834,8 @@
     font-weight: 300;
     font-size: 0.75rem;
     letter-spacing: 0.3em;
-    color: var(--sage);
-    opacity: 0.5;
+    color: var(--text-light);
+    opacity: 0.7;
   }
 
   /* ============ ANIMATIONS ============ */
