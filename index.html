@@ -78,6 +78,7 @@
   .hero-content {
     position: relative;
     z-index: 1;
+    margin-top: -6rem;
   }
 
   .hero-ornament {
@@ -155,7 +156,7 @@
     width: 80px;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--sage-light), transparent);
-    margin: 2rem auto;
+    margin: 3rem auto 1rem;
     opacity: 0;
     animation: fadeUp 1s ease 1s forwards;
   }
@@ -163,7 +164,7 @@
   .hero-date {
     font-family: 'Cormorant Garamond', 'Noto Serif', serif;
     font-weight: 300;
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
     letter-spacing: 0.25em;
     color: var(--sage-light);
     opacity: 0;
@@ -789,6 +790,20 @@
     font-style: italic;
   }
 
+  .parents-photo {
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    transform: scaleX(-1);
+  }
+
+  .parents-label {
+    font-family: 'Lora', 'Noto Serif', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.8;
+  }
+
   /* ============ FOOTER ============ */
   .footer {
     background: #2C2216;
@@ -821,8 +836,8 @@
   }
 
   @keyframes bounce {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(6px); }
+    0%, 100% { transform: rotate(45deg) translateY(0) translateX(0); }
+    50% { transform: rotate(45deg) translateY(3px) translateX(3px); }
   }
 
   .reveal {
@@ -950,7 +965,7 @@
     <div class="petals" id="petals"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">Біз үйленеміз</div>
+      <!-- <div class="hero-badge">Дәулет & Назерке</div> -->
       <h1 class="hero-name">Дәулет</h1>
       <p class="hero-ampersand">&</p>
       <h1 class="hero-name">Назерке</h1>
@@ -979,31 +994,6 @@
         Біз сіздерді тойымызға шақырамыз. Сіздердің қатысуларыңыз біз үшін ең қымбат сыйлық.
         Сіздерді 2026 жылдың 6 маусымында күтеміз!
       </p>
-    </div>
-  </section>
-
-  <!-- ====== OWNERS ====== -->
-  <section class="owners-section">
-    <div class="section">
-      <div class="reveal">
-        <p class="section-label">Іс-шара иелері</p>
-        <h2 class="section-title">Той иелері</h2>
-        <div class="section-divider">
-          <span class="line"></span>
-          <span class="diamond"></span>
-          <span class="line"></span>
-        </div>
-      </div>
-      <div class="owners-grid reveal">
-        <div class="owner-card">
-          <img class="owner-photo" src="father.jpg" alt="Әкесі">
-          <span class="owner-label">Әкесі</span>
-        </div>
-        <div class="owner-card">
-          <img class="owner-photo" src="mother.jpg" alt="Анасы">
-          <span class="owner-label">Анасы</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1116,6 +1106,21 @@
         <div class="detail-icon">🕐</div>
         <p class="detail-label">Уақыты</p>
         <p class="detail-value">Қонақтарды қарсы алу<br>16:00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== OWNERS ====== -->
+  <section class="owners-section">
+    <div class="section">
+      <div class="reveal">
+        <p class="section-label">Той иелері</p>
+      </div>
+      <div class="owners-grid reveal">
+        <div class="owner-card">
+          <img class="owner-photo parents-photo" src="parents.jpg" alt="Той иелері">
+          <span class="owner-label parents-label">Биғазы — Ақмарал</span>
+        </div>
       </div>
     </div>
   </section>
