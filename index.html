@@ -63,7 +63,7 @@
     position: absolute;
     inset: 0;
     background: url('bg.jpg') center/cover no-repeat;
-    filter: brightness(0.35);
+    filter: brightness(0.55);
   }
 
   .hero::after {
@@ -78,7 +78,7 @@
   .hero-content {
     position: relative;
     z-index: 1;
-    margin-top: -6rem;
+    margin-top: -14rem;
   }
 
   .hero-ornament {
@@ -156,7 +156,7 @@
     width: 80px;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--sage-light), transparent);
-    margin: 3rem auto 1rem;
+    margin: 0 auto 0.8rem;
     opacity: 0;
     animation: fadeUp 1s ease 1s forwards;
   }
@@ -171,13 +171,18 @@
     animation: fadeUp 1s ease 1.2s forwards;
   }
 
-  .hero-scroll {
+  .hero-bottom {
     position: absolute;
     bottom: 40px;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .hero-scroll-inline {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -190,10 +195,10 @@
     animation: fadeUp 1s ease 1.5s forwards;
     cursor: pointer;
     text-decoration: none;
-    z-index: 1;
+    margin-top: 0.8rem;
   }
 
-  .hero-scroll .arrow {
+  .hero-scroll-inline .arrow {
     width: 18px;
     height: 18px;
     border-right: 1px solid var(--sage-light);
@@ -969,14 +974,16 @@
       <h1 class="hero-name">Дәулет</h1>
       <p class="hero-ampersand">&</p>
       <h1 class="hero-name">Назерке</h1>
-      <div class="hero-line"></div>
-      <p class="hero-date">06 . 06 . 2026</p>
     </div>
 
-    <a href="#countdown" class="hero-scroll">
-      <span>Толығырақ</span>
-      <span class="arrow"></span>
-    </a>
+    <div class="hero-bottom">
+      <div class="hero-line"></div>
+      <p class="hero-date">06 . 06 . 2026</p>
+      <a href="#countdown" class="hero-scroll-inline">
+        <span>Толығырақ</span>
+        <span class="arrow"></span>
+      </a>
+    </div>
   </section>
 
   <!-- ====== MESSAGE ====== -->
