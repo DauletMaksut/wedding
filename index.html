@@ -78,7 +78,7 @@
   .hero-content {
     position: relative;
     z-index: 1;
-    margin-top: -18rem;
+    margin-top: -20rem;
   }
 
   .hero-ornament {
@@ -171,7 +171,7 @@
     animation: fadeUp 1s ease 1.2s forwards;
   }
 
-  .hero-bottom {
+  .hero-date-block {
     position: absolute;
     bottom: 80px;
     left: 0;
@@ -182,7 +182,11 @@
     z-index: 1;
   }
 
-  .hero-scroll-inline {
+  .hero-scroll-bottom {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -195,10 +199,10 @@
     animation: fadeUp 1s ease 1.5s forwards;
     cursor: pointer;
     text-decoration: none;
-    margin-top: 0.8rem;
+    z-index: 1;
   }
 
-  .hero-scroll-inline .arrow {
+  .hero-scroll-bottom .arrow {
     width: 18px;
     height: 18px;
     border-right: 1px solid var(--sage-light);
@@ -513,7 +517,7 @@
 
   /* ============ RSVP ============ */
   .rsvp-section {
-    background: linear-gradient(165deg, #3B2E1E 0%, #4A3828 40%, #3B2E1E 100%);
+    background: var(--dark);
     position: relative;
     overflow: hidden;
   }
@@ -522,9 +526,8 @@
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 20%, rgba(156,124,82,0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 80%, rgba(156,124,82,0.05) 0%, transparent 50%);
+    background: url('f1.jpg') center/cover no-repeat;
+    filter: brightness(0.3);
   }
 
   .rsvp-section .section-label { color: var(--sage-light); }
@@ -976,20 +979,21 @@
       <h1 class="hero-name">Назерке</h1>
     </div>
 
-    <div class="hero-bottom">
+    <div class="hero-date-block">
       <div class="hero-line"></div>
       <p class="hero-date">06 . 06 . 2026</p>
-      <a href="#countdown" class="hero-scroll-inline">
-        <span>Толығырақ</span>
-        <span class="arrow"></span>
-      </a>
     </div>
+
+    <a href="#countdown" class="hero-scroll-bottom">
+      <span>Толығырақ</span>
+      <span class="arrow"></span>
+    </a>
   </section>
 
   <!-- ====== MESSAGE ====== -->
   <section class="section message-section">
     <div class="reveal">
-      <h2 class="section-title">Үйлену тойына шақыру</h2>
+      <h2 class="section-title">Махаббат мерекесі</h2>
       <div class="section-divider">
         <span class="line"></span>
         <span class="diamond"></span>
